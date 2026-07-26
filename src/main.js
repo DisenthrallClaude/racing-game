@@ -13,7 +13,9 @@ import { Race, RACE_STATE, formatTime } from './game/race.js';
 import { ChaseCamera } from './game/camera.js';
 import { SkidMarks, ParticlePool, createNitroPlume, createSpeedLines, smokeSprite } from './game/effects.js';
 import { HUD } from './ui/hud.js';
-import { radialSprite } from './util/tex.js';
+import {
+  radialSprite, asphaltMaps, grassGroundMaps, rockMaps, snowMaps, roofTileMaps, woodMaps,
+} from './util/tex.js';
 import { clamp, makeRng } from './util/noise.js';
 
 const AI_COLORS = [0xff8a2b, 0x2ec4ff, 0x9dff5a, 0xb64bff, 0xffe066, 0xff4f7a, 0x5affd0];
@@ -543,7 +545,7 @@ function trackBlurb(id) {
 
 // ---------------------------------------------------------------------------
 
-window.addEventListener('DOMContentLoaded', async () => {
+async function boot() {
   const game = new Game();
   window.__game = game;
 
@@ -551,11 +553,17 @@ window.addEventListener('DOMContentLoaded', async () => {
   // first race doesn't stutter.
   game._setProgress(0.35, '烘焙材质 · Baking materials');
   await frame();
-  const { asphaltMaps, grassGroundMaps, rockMaps, snowMaps, roofTileMaps, woodMaps } =
-    await import('./util/tex.js');
   asphaltMaps(); grassGroundMaps(); rockMaps(); snowMaps(); roofTileMaps(); woodMaps();
   game._setProgress(0.9, '准备就绪 · Ready');
   await frame();
   game.el.loading.classList.add('hidden');
   game.toMenu();
-});
+}
+
+// Works whether the script is deferred, inlined at the end of the document, or
+// evaluated after the document has already finished parsing.
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', boot);
+} else {
+  boot();
+}
