@@ -72,6 +72,7 @@ class Game {
         <div class="sub">${t.subtitle}</div>
         <div class="desc">${trackBlurb(t.id)}</div>
         <div class="stars">${[0, 1, 2].map((k) => `<i class="${k < t.difficulty ? 'on' : ''}"></i>`).join('')}</div>
+        <div class="sub" style="margin-top:8px">${t.laps} 圈 · ${(t.laps * 4.0).toFixed(0)}–${(t.laps * 5.5).toFixed(0)} 分钟</div>
       </div>`).join('');
 
     const cc = document.getElementById('car-cards');

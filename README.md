@@ -19,7 +19,7 @@ npm run build && npm run preview
 |---|---|---|---|
 | ★☆☆ | **樱花神社** SAKURA SHRINE | 黄昏 golden hour | 飞檐斗拱的木构古镇、五层宝塔、牌坊与鸟居横跨赛道、成串红灯笼、漫天樱花、湖上石拱桥、穿山隧道与窄桥 |
 | ★★★ | **霓虹都市** NEON METROPOLIS | 雨夜 rain at night | 78 座逐窗发光的摩天楼、湿滑镜面路面、全息招牌、高架桥与地下隧道、26° 倾角飞跨弯 |
-| ★★☆ | **云顶雪山** CLOUDTOP ALPINE | 极光黎明 aurora dawn | 极光帘幕、脊线窄桥与深渊、冰洞隧道、雪压木屋与石砌小教堂、运行中的缆车 |
+| ★★☆ | **云顶雪山** CLOUDTOP ALPINE (2 圈) | 极光黎明 aurora dawn | 极光帘幕、脊线窄桥与深渊、冰洞隧道、雪压木屋与石砌小教堂、运行中的缆车 |
 
 Each circuit is authored in `src/track/layout.js` as a **closed polygon of
 corners, each with the radius it should be rounded to**. The builder fillets
@@ -37,6 +37,10 @@ neighbours. The current layouts land at 10 / 13 / 17 drift-worthy corners with
 minimum radii of 47 / 39 / 50 m. Boost pads are then placed from the geometry —
 `World._pickBoostSpots` finds the longest genuinely straight runs and drops a
 pad a third of the way into each — so they follow any layout change.
+
+`.dev/sim.mjs` runs whole races headless to check the balance. Driven by an AI
+controller, a lap is roughly 90 s / 110 s / 139 s, so Cloudtop Alpine runs two
+laps and the others three, putting every race in the same 4½–5½ minute band.
 
 ## Controls
 

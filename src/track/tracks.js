@@ -307,7 +307,7 @@ export const ALPINE = {
   name: '云顶雪山',
   subtitle: 'CLOUDTOP ALPINE · 极光黎明',
   difficulty: 2,
-  laps: 3,
+  laps: 2,
   points: alpineLayout,
   _clampReport: alpineClamp,
   width: 20,
