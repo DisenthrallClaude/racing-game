@@ -350,11 +350,13 @@ export const ALPINE = {
       groundColor: 0x53637c,
       horizonHaze: 0.7,
     },
-    sun: { color: 0xffd8b8, intensity: 4.0, shadowRadius: 3.6 },
-    ambient: { sky: 0xc4dcff, ground: 0x8496b4, intensity: 1.7, floor: 1.0, floorColor: 0xc8dcff },
+    sun: { color: 0xffd8b8, intensity: 3.4, shadowRadius: 3.6 },
+    // Snow is the brightest ground in the game, so this theme needs less
+    // ambient and less exposure than the others or the highlights clip.
+    ambient: { sky: 0xc4dcff, ground: 0x8496b4, intensity: 1.35, floor: 0.7, floorColor: 0xc8dcff },
     fog: { color: 0xa8bdd6, near: 260, far: 4200, density: 0.00019 },
     grade: {
-      exposure: 1.18, bloom: 0.8, bloomRadius: 0.85, bloomThreshold: 0.68,
+      exposure: 0.98, bloom: 0.8, bloomRadius: 0.85, bloomThreshold: 0.82,
       saturation: 1.06, contrast: 1.08, vignette: 1.0, grain: 0.028,
       lift: [0.0, 0.004, 0.012], gain: [0.99, 1.0, 1.06],
     },

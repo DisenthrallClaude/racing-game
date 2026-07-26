@@ -1,8 +1,0 @@
-
-=== sakura ===
-world built in 30.7s
-  sakura-1-grid: 720x405 meanRGB=94.0
-  sakura-2-drive: 720x405 meanRGB=80.5
-  sakura-3-drift: 720x405 meanRGB=82.9
-  sakura-4-boost: 720x405 meanRGB=83.5
-  sakura-5-cine: 720x405 meanRGB=92.5
