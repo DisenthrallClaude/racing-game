@@ -1,0 +1,47 @@
+{
+  "direct": {
+    "calls": 96,
+    "tris": 697640
+  },
+  "composed": {
+    "calls": 114,
+    "tris": 697658
+  },
+  "pixelDirect": [
+    73,
+    39,
+    23,
+    255
+  ],
+  "pixelComposed": [
+    0,
+    0,
+    0,
+    255
+  ],
+  "camPos": [
+    -4804.2,
+    -54.1,
+    124.8
+  ],
+  "carPos": [
+    666.7,
+    7.9,
+    -17.3
+  ],
+  "meshes": 912,
+  "visible": 912,
+  "passes": [
+    "O0:true",
+    "Gi:true",
+    "Jl:true",
+    "z0:true",
+    "H0:true"
+  ],
+  "fog": true,
+  "env": true,
+  "capsHalfFloat": true,
+  "isWebGL2": true
+}
+--- errors ---
+Failed to load resource: the server responded with a status of 404 (Not Found)

@@ -1,0 +1,19 @@
+{
+  "name": "neon-drift",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "霓虹飞车 NEON DRIFT — a QQ-Speed inspired arcade racer with photoreal procedural environments",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173"
+  },
+  "dependencies": {
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0",
+    "vite": "^5.4.10"
+  }
+}

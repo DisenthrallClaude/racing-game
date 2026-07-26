@@ -1,0 +1,915 @@
+
+=== sakura ===
+{
+ "driftSec": 14,
+ "boostSec": 29.4,
+ "maxNitro": 1,
+ "samples": [
+  {
+   "t": 0,
+   "kmh": 0,
+   "lap": 0,
+   "prog": -18,
+   "lat": -4.9,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 15,
+   "kmh": 134,
+   "lap": 0,
+   "prog": 249,
+   "lat": 1.3,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 30,
+   "kmh": 170,
+   "lap": 0,
+   "prog": 908,
+   "lat": -1.6,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 45,
+   "kmh": 127,
+   "lap": 0,
+   "prog": 1585,
+   "lat": -2.2,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 60,
+   "kmh": 126,
+   "lap": 0,
+   "prog": 2080,
+   "lat": 2.9,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 75,
+   "kmh": 151,
+   "lap": 0,
+   "prog": 2644,
+   "lat": -1,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 90,
+   "kmh": 140,
+   "lap": 0,
+   "prog": 3371,
+   "lat": -3.4,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 105,
+   "kmh": 123,
+   "lap": 1,
+   "prog": 3974,
+   "lat": 2.2,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 120,
+   "kmh": 160,
+   "lap": 1,
+   "prog": 4630,
+   "lat": -4,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 135,
+   "kmh": 144,
+   "lap": 1,
+   "prog": 5346,
+   "lat": -1.4,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 150,
+   "kmh": 116,
+   "lap": 1,
+   "prog": 5830,
+   "lat": 2.1,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 165,
+   "kmh": 130,
+   "lap": 1,
+   "prog": 6348,
+   "lat": 0.1,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 180,
+   "kmh": 179,
+   "lap": 1,
+   "prog": 7025,
+   "lat": 4.2,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 195,
+   "kmh": 142,
+   "lap": 1,
+   "prog": 7680,
+   "lat": 5.1,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 210,
+   "kmh": 168,
+   "lap": 2,
+   "prog": 8257,
+   "lat": 4.5,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 225,
+   "kmh": 189,
+   "lap": 2,
+   "prog": 8976,
+   "lat": 4.6,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 240,
+   "kmh": 114,
+   "lap": 2,
+   "prog": 9591,
+   "lat": -0.3,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 255,
+   "kmh": 133,
+   "lap": 2,
+   "prog": 10090,
+   "lat": 1.1,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 270,
+   "kmh": 183,
+   "lap": 2,
+   "prog": 10689,
+   "lat": -0.9,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 285,
+   "kmh": 152,
+   "lap": 2,
+   "prog": 11398,
+   "lat": -0.1,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  }
+ ],
+ "longestStuckSec": 1.1,
+ "finished": true,
+ "playerLap": 3,
+ "playerBest": 95.2,
+ "raceTime": 295.7,
+ "standings": [
+  {
+   "n": "你 YOU",
+   "p": 1,
+   "lap": 3,
+   "prog": 11833,
+   "onRoad": true,
+   "kmh": 121
+  },
+  {
+   "n": "风间·凛",
+   "p": 2,
+   "lap": 2,
+   "prog": 11673,
+   "onRoad": true,
+   "kmh": 146
+  },
+  {
+   "n": "赤羽",
+   "p": 3,
+   "lap": 2,
+   "prog": 11498,
+   "onRoad": true,
+   "kmh": 159
+  },
+  {
+   "n": "苍岚",
+   "p": 4,
+   "lap": 2,
+   "prog": 11410,
+   "onRoad": true,
+   "kmh": 112
+  },
+  {
+   "n": "流星·S",
+   "p": 5,
+   "lap": 2,
+   "prog": 10497,
+   "onRoad": true,
+   "kmh": 133
+  },
+  {
+   "n": "夜光·K",
+   "p": 6,
+   "lap": 2,
+   "prog": 10213,
+   "onRoad": true,
+   "kmh": 120
+  }
+ ]
+}
+
+=== metro ===
+{
+ "driftSec": 12.1,
+ "boostSec": 36.1,
+ "maxNitro": 1,
+ "samples": [
+  {
+   "t": 0,
+   "kmh": 1,
+   "lap": 0,
+   "prog": -18,
+   "lat": -4.8,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 15,
+   "kmh": 146,
+   "lap": 0,
+   "prog": 303,
+   "lat": 4.4,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 30,
+   "kmh": 149,
+   "lap": 0,
+   "prog": 880,
+   "lat": 4.5,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 45,
+   "kmh": 150,
+   "lap": 0,
+   "prog": 1521,
+   "lat": -0.8,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 60,
+   "kmh": 131,
+   "lap": 0,
+   "prog": 2128,
+   "lat": -3.8,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 75,
+   "kmh": 156,
+   "lap": 0,
+   "prog": 2749,
+   "lat": 1.7,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 90,
+   "kmh": 143,
+   "lap": 0,
+   "prog": 3411,
+   "lat": -9.6,
+   "onRoad": false,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 105,
+   "kmh": 57,
+   "lap": 0,
+   "prog": 3684,
+   "lat": -2.1,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 120,
+   "kmh": 88,
+   "lap": 0,
+   "prog": 3984,
+   "lat": 0.3,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 135,
+   "kmh": 137,
+   "lap": 1,
+   "prog": 4537,
+   "lat": -9.5,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 150,
+   "kmh": 151,
+   "lap": 1,
+   "prog": 5143,
+   "lat": -3.9,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 165,
+   "kmh": 153,
+   "lap": 1,
+   "prog": 5788,
+   "lat": -4.5,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 180,
+   "kmh": 140,
+   "lap": 1,
+   "prog": 6377,
+   "lat": -3.7,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 195,
+   "kmh": 147,
+   "lap": 1,
+   "prog": 7014,
+   "lat": 2.7,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 210,
+   "kmh": 33,
+   "lap": 1,
+   "prog": 7615,
+   "lat": -10.7,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 225,
+   "kmh": 71,
+   "lap": 1,
+   "prog": 7851,
+   "lat": -7.8,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 240,
+   "kmh": 147,
+   "lap": 2,
+   "prog": 8255,
+   "lat": -3.1,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 255,
+   "kmh": 140,
+   "lap": 2,
+   "prog": 8864,
+   "lat": 2.1,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 270,
+   "kmh": 131,
+   "lap": 2,
+   "prog": 9459,
+   "lat": -3.8,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 285,
+   "kmh": 137,
+   "lap": 2,
+   "prog": 10022,
+   "lat": 1.6,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 300,
+   "kmh": 138,
+   "lap": 2,
+   "prog": 10525,
+   "lat": 3.9,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 3
+  },
+  {
+   "t": 315,
+   "kmh": 150,
+   "lap": 2,
+   "prog": 11137,
+   "lat": 0.3,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 3
+  },
+  {
+   "t": 330,
+   "kmh": 40,
+   "lap": 2,
+   "prog": 11668,
+   "lat": -1.8,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 3
+  },
+  {
+   "t": 345,
+   "kmh": 74,
+   "lap": 2,
+   "prog": 11936,
+   "lat": -3.5,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 3
+  }
+ ],
+ "longestStuckSec": 2.4,
+ "finished": true,
+ "playerLap": 3,
+ "playerBest": 112.3,
+ "raceTime": 352.5,
+ "standings": [
+  {
+   "n": "苍岚",
+   "p": 1,
+   "lap": 3,
+   "prog": 12368,
+   "onRoad": true,
+   "kmh": 82
+  },
+  {
+   "n": "赤羽",
+   "p": 2,
+   "lap": 3,
+   "prog": 12180,
+   "onRoad": true,
+   "kmh": 89
+  },
+  {
+   "n": "你 YOU",
+   "p": 3,
+   "lap": 3,
+   "prog": 12109,
+   "onRoad": true,
+   "kmh": 93
+  },
+  {
+   "n": "风间·凛",
+   "p": 4,
+   "lap": 2,
+   "prog": 12005,
+   "onRoad": true,
+   "kmh": 80
+  },
+  {
+   "n": "夜光·K",
+   "p": 5,
+   "lap": 2,
+   "prog": 11298,
+   "onRoad": true,
+   "kmh": 152
+  },
+  {
+   "n": "流星·S",
+   "p": 6,
+   "lap": 2,
+   "prog": 10454,
+   "onRoad": true,
+   "kmh": 125
+  }
+ ]
+}
+
+=== alpine ===
+{
+ "driftSec": 31,
+ "boostSec": 46.4,
+ "maxNitro": 2,
+ "samples": [
+  {
+   "t": 0,
+   "kmh": 1,
+   "lap": 0,
+   "prog": -19,
+   "lat": -4.4,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 15,
+   "kmh": 138,
+   "lap": 0,
+   "prog": 285,
+   "lat": 4.2,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 30,
+   "kmh": 151,
+   "lap": 0,
+   "prog": 840,
+   "lat": 1.8,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 45,
+   "kmh": 106,
+   "lap": 0,
+   "prog": 1495,
+   "lat": 0.1,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 60,
+   "kmh": 123,
+   "lap": 0,
+   "prog": 1982,
+   "lat": 1,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 75,
+   "kmh": 55,
+   "lap": 0,
+   "prog": 2378,
+   "lat": -2.9,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 90,
+   "kmh": 95,
+   "lap": 0,
+   "prog": 2691,
+   "lat": -5.8,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 105,
+   "kmh": 97,
+   "lap": 0,
+   "prog": 3158,
+   "lat": -1.4,
+   "onRoad": true,
+   "nitro": 1,
+   "pos": 1
+  },
+  {
+   "t": 120,
+   "kmh": 158,
+   "lap": 0,
+   "prog": 3734,
+   "lat": 1.9,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 135,
+   "kmh": 89,
+   "lap": 0,
+   "prog": 4203,
+   "lat": -6.4,
+   "onRoad": true,
+   "nitro": 1,
+   "pos": 1
+  },
+  {
+   "t": 150,
+   "kmh": 87,
+   "lap": 1,
+   "prog": 4536,
+   "lat": -1.4,
+   "onRoad": true,
+   "nitro": 1,
+   "pos": 1
+  },
+  {
+   "t": 165,
+   "kmh": 95,
+   "lap": 1,
+   "prog": 5114,
+   "lat": -2.5,
+   "onRoad": true,
+   "nitro": 1,
+   "pos": 1
+  },
+  {
+   "t": 180,
+   "kmh": 168,
+   "lap": 1,
+   "prog": 5726,
+   "lat": -5.7,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 1
+  },
+  {
+   "t": 195,
+   "kmh": 110,
+   "lap": 1,
+   "prog": 6256,
+   "lat": -1.3,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 210,
+   "kmh": 119,
+   "lap": 1,
+   "prog": 6731,
+   "lat": 0,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 225,
+   "kmh": 69,
+   "lap": 1,
+   "prog": 6983,
+   "lat": -1.6,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 240,
+   "kmh": 122,
+   "lap": 1,
+   "prog": 7392,
+   "lat": -0.5,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 255,
+   "kmh": 151,
+   "lap": 1,
+   "prog": 7878,
+   "lat": -0.8,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 270,
+   "kmh": 85,
+   "lap": 1,
+   "prog": 8470,
+   "lat": 5.9,
+   "onRoad": true,
+   "nitro": 1,
+   "pos": 2
+  },
+  {
+   "t": 285,
+   "kmh": 82,
+   "lap": 1,
+   "prog": 8858,
+   "lat": -6.8,
+   "onRoad": true,
+   "nitro": 1,
+   "pos": 2
+  },
+  {
+   "t": 300,
+   "kmh": 156,
+   "lap": 2,
+   "prog": 9299,
+   "lat": 7.6,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 315,
+   "kmh": 158,
+   "lap": 2,
+   "prog": 9878,
+   "lat": 1.2,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 330,
+   "kmh": 106,
+   "lap": 2,
+   "prog": 10509,
+   "lat": -1.1,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 345,
+   "kmh": 126,
+   "lap": 2,
+   "prog": 10997,
+   "lat": 2.5,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 360,
+   "kmh": 60,
+   "lap": 2,
+   "prog": 11361,
+   "lat": -0.7,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 375,
+   "kmh": 97,
+   "lap": 2,
+   "prog": 11691,
+   "lat": -0.2,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  },
+  {
+   "t": 390,
+   "kmh": 106,
+   "lap": 2,
+   "prog": 12160,
+   "lat": -3.7,
+   "onRoad": true,
+   "nitro": 1,
+   "pos": 2
+  },
+  {
+   "t": 405,
+   "kmh": 136,
+   "lap": 2,
+   "prog": 12762,
+   "lat": -7.8,
+   "onRoad": true,
+   "nitro": 0,
+   "pos": 2
+  }
+ ],
+ "longestStuckSec": 1.1,
+ "finished": false,
+ "playerLap": 2,
+ "playerBest": 142.35,
+ "raceTime": 420,
+ "standings": [
+  {
+   "n": "苍岚",
+   "p": 1,
+   "lap": 3,
+   "prog": 13519,
+   "onRoad": true,
+   "kmh": 72
+  },
+  {
+   "n": "你 YOU",
+   "p": 2,
+   "lap": 2,
+   "prog": 13201,
+   "onRoad": true,
+   "kmh": 86
+  },
+  {
+   "n": "风间·凛",
+   "p": 3,
+   "lap": 2,
+   "prog": 13168,
+   "onRoad": true,
+   "kmh": 89
+  },
+  {
+   "n": "赤羽",
+   "p": 4,
+   "lap": 2,
+   "prog": 13015,
+   "onRoad": true,
+   "kmh": 93
+  },
+  {
+   "n": "流星·S",
+   "p": 5,
+   "lap": 2,
+   "prog": 11706,
+   "onRoad": true,
+   "kmh": 93
+  },
+  {
+   "n": "夜光·K",
+   "p": 6,
+   "lap": 2,
+   "prog": 11627,
+   "onRoad": true,
+   "kmh": 80
+  }
+ ]
+}
+
+--- errors ---
+Failed to load resource: the server responded with a status of 404 (Not Found)

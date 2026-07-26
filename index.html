@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#05070d" />
+<title>霓虹飞车 NEON DRIFT</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%8F%8E%3C/text%3E%3C/svg%3E" />
+<style>
+  :root {
+    --neon: #35e0ff;
+    --neon2: #ff3ea5;
+    --gold: #ffcb6b;
+    --ink: #05070d;
+    --panel: rgba(10, 14, 24, 0.72);
+    --stroke: rgba(140, 200, 255, 0.22);
+    --font: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "SF Mono", "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; overflow: hidden; background: var(--ink); font-family: var(--font); color: #eaf2ff; }
+  canvas { display: block; width: 100%; height: 100%; }
+
+  #app { position: fixed; inset: 0; }
+  .layer { position: absolute; inset: 0; pointer-events: none; }
+  .layer.interactive { pointer-events: auto; }
+  .hidden { display: none !important; }
+
+  /* ---------- loading ---------- */
+  #loading {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: radial-gradient(120% 90% at 50% 15%, #131f38 0%, #070a12 55%, #03040a 100%);
+    z-index: 60; pointer-events: auto; gap: 26px;
+  }
+  #loading .mark { font-size: clamp(34px, 7vw, 78px); font-weight: 900; letter-spacing: .12em;
+    background: linear-gradient(100deg, var(--neon), #fff 40%, var(--neon2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 26px rgba(53, 224, 255, .35)); }
+  #loading .sub { font-size: 13px; letter-spacing: .5em; color: #7f97bb; text-transform: uppercase; }
+  #loadbar { width: min(460px, 74vw); height: 3px; background: rgba(255,255,255,.09); border-radius: 3px; overflow: hidden; }
+  #loadbar i { display: block; height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--neon), var(--neon2)); transition: width .28s ease;
+    box-shadow: 0 0 16px rgba(53,224,255,.8); }
+  #loadtext { font-size: 12.5px; color: #90a8c8; letter-spacing: .08em; min-height: 18px; }
+  .spinner { width: 30px; height: 30px; border: 2px solid rgba(255,255,255,.12);
+    border-top-color: var(--neon); border-radius: 50%; animation: spin .9s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- menu ---------- */
+  #menu {
+    z-index: 50; pointer-events: auto; display: flex; flex-direction: column;
+    background: linear-gradient(180deg, rgba(4,6,12,.86) 0%, rgba(4,6,12,.38) 34%, rgba(4,6,12,.86) 100%);
+    padding: clamp(16px, 3vw, 40px); overflow-y: auto;
+  }
+  .brand { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .brand h1 { font-size: clamp(30px, 5.2vw, 60px); font-weight: 900; letter-spacing: .06em; line-height: 1;
+    background: linear-gradient(100deg, #fff, var(--neon) 45%, var(--neon2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 24px rgba(53,224,255,.3)); }
+  .brand .en { font-size: clamp(11px, 1.4vw, 15px); letter-spacing: .48em; color: #7f9bc4; }
+  .tagline { margin-top: 8px; font-size: 13px; color: #93a9c9; letter-spacing: .12em; }
+
+  .menu-body { flex: 1; display: grid; gap: clamp(14px, 2vw, 26px);
+    grid-template-columns: 1fr; align-content: start; margin-top: clamp(14px, 2.4vw, 30px); }
+  @media (min-width: 940px) { .menu-body { grid-template-columns: 1.55fr 1fr; } }
+
+  .panel { background: var(--panel); border: 1px solid var(--stroke); border-radius: 16px;
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); padding: clamp(14px, 1.7vw, 22px);
+    box-shadow: 0 18px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05); }
+  .panel h2 { font-size: 12px; letter-spacing: .34em; color: #7f9bc4; text-transform: uppercase;
+    margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .panel h2::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--stroke), transparent); }
+
+  .cards { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  .card { position: relative; border-radius: 13px; padding: 15px; cursor: pointer; overflow: hidden;
+    border: 1px solid rgba(255,255,255,.09); background: rgba(255,255,255,.035);
+    transition: transform .18s ease, border-color .18s ease, background .18s ease; }
+  .card:hover { transform: translateY(-3px); border-color: rgba(53,224,255,.5); background: rgba(53,224,255,.07); }
+  .card.sel { border-color: var(--neon); background: linear-gradient(140deg, rgba(53,224,255,.16), rgba(255,62,165,.10));
+    box-shadow: 0 0 0 1px rgba(53,224,255,.35), 0 14px 40px rgba(53,224,255,.16); }
+  .card .name { font-size: 17px; font-weight: 800; letter-spacing: .04em; }
+  .card .sub { font-size: 10.5px; letter-spacing: .2em; color: #86a0c2; margin-top: 4px; text-transform: uppercase; }
+  .card .desc { font-size: 12px; color: #a9bdd8; margin-top: 9px; line-height: 1.5; }
+  .card .swatch { position: absolute; top: 14px; right: 14px; width: 15px; height: 15px; border-radius: 50%;
+    box-shadow: 0 0 14px currentColor; }
+  .stars { margin-top: 10px; display: flex; gap: 3px; }
+  .stars i { width: 16px; height: 3px; border-radius: 2px; background: rgba(255,255,255,.16); }
+  .stars i.on { background: linear-gradient(90deg, var(--neon), var(--neon2)); box-shadow: 0 0 8px rgba(53,224,255,.7); }
+
+  .stat { display: grid; grid-template-columns: 74px 1fr 34px; align-items: center; gap: 10px; margin-top: 9px;
+    font-size: 11px; letter-spacing: .16em; color: #8ea6c6; }
+  .bar { height: 5px; border-radius: 4px; background: rgba(255,255,255,.09); overflow: hidden; }
+  .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--neon), var(--neon2)); }
+
+  .options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt { padding: 8px 14px; border-radius: 9px; font-size: 12px; letter-spacing: .1em; cursor: pointer;
+    border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); color: #b8cbe4; transition: all .16s; }
+  .opt:hover { border-color: rgba(53,224,255,.5); color: #fff; }
+  .opt.sel { background: linear-gradient(120deg, rgba(53,224,255,.24), rgba(255,62,165,.18));
+    border-color: var(--neon); color: #fff; }
+
+  .keys { display: grid; grid-template-columns: auto 1fr; gap: 7px 14px; font-size: 12px; color: #a4b9d6; }
+  .keys b { font-family: var(--mono); font-weight: 600; font-size: 11px; color: #dbe9ff;
+    background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.13);
+    border-radius: 5px; padding: 2px 7px; white-space: nowrap; }
+
+  .go { margin-top: clamp(14px, 2vw, 24px); display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .btn { pointer-events: auto; cursor: pointer; border: none; border-radius: 12px; font-family: var(--font);
+    font-size: 15px; font-weight: 800; letter-spacing: .18em; padding: 15px 40px; color: #04131a;
+    background: linear-gradient(100deg, var(--neon), #9df3ff 45%, var(--neon2));
+    box-shadow: 0 12px 34px rgba(53,224,255,.28); transition: transform .16s ease, box-shadow .16s ease; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 44px rgba(53,224,255,.42); }
+  .btn.ghost { background: rgba(255,255,255,.06); color: #d5e6ff; border: 1px solid rgba(255,255,255,.16);
+    box-shadow: none; }
+  .btn.ghost:hover { background: rgba(255,255,255,.11); }
+
+  /* ---------- HUD ---------- */
+  #hud { z-index: 20; font-variant-numeric: tabular-nums; }
+  .hud-tl { position: absolute; top: 18px; left: 20px; display: flex; gap: 12px; align-items: flex-start; }
+  .chip { background: rgba(6,10,18,.55); border: 1px solid var(--stroke); border-radius: 12px;
+    padding: 9px 15px; backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px); }
+  .chip .k { font-size: 9.5px; letter-spacing: .3em; color: #7f9bc4; text-transform: uppercase; }
+  .chip .v { font-size: 21px; font-weight: 800; letter-spacing: .04em; margin-top: 1px; }
+  .chip .v small { font-size: 12px; color: #8ea6c6; font-weight: 600; }
+  #pos .v { background: linear-gradient(100deg, var(--gold), #fff);
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  .hud-tr { position: absolute; top: 18px; right: 20px; text-align: right; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+  #minimap { width: 168px; height: 168px; border-radius: 14px; background: rgba(6,10,18,.5);
+    border: 1px solid var(--stroke); backdrop-filter: blur(9px); }
+  #standings { background: rgba(6,10,18,.5); border: 1px solid var(--stroke); border-radius: 12px;
+    padding: 8px 12px; font-size: 11.5px; min-width: 168px; backdrop-filter: blur(9px); }
+  #standings div { display: flex; justify-content: space-between; gap: 12px; padding: 2.5px 0; color: #b3c6e0; }
+  #standings div.me { color: #fff; font-weight: 800; }
+  #standings div.me b { color: var(--gold); }
+  #standings b { color: #8ea6c6; font-weight: 700; width: 15px; display: inline-block; }
+
+  /* speedometer */
+  .hud-br { position: absolute; right: 22px; bottom: 20px; display: flex; align-items: flex-end; gap: 18px; }
+  #speedo { position: relative; width: 190px; height: 190px; }
+  #speedo canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .speed-num { position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding-top: 12px; }
+  .speed-num .n { font-size: 46px; font-weight: 900; line-height: .95; letter-spacing: -.02em;
+    text-shadow: 0 0 26px rgba(53,224,255,.5); }
+  .speed-num .u { font-size: 10px; letter-spacing: .34em; color: #8ea6c6; margin-top: 3px; }
+  .speed-num .gear { font-size: 12px; letter-spacing: .2em; color: var(--gold); margin-top: 5px; font-weight: 700; }
+
+  /* nitro */
+  .hud-bl { position: absolute; left: 22px; bottom: 22px; width: min(320px, 40vw); }
+  .nitro-label { font-size: 10px; letter-spacing: .34em; color: #7f9bc4; margin-bottom: 6px; }
+  #nitro { display: flex; gap: 7px; }
+  #nitro .cell { flex: 1; height: 13px; border-radius: 4px; background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12); position: relative; overflow: hidden; }
+  #nitro .cell.on { background: linear-gradient(100deg, #35e0ff, #9df3ff); border-color: #9df3ff;
+    box-shadow: 0 0 16px rgba(53,224,255,.8); }
+  #drift-meter { margin-top: 9px; height: 6px; border-radius: 4px; background: rgba(255,255,255,.07); overflow: hidden; }
+  #drift-meter i { display: block; height: 100%; width: 0%; transition: width .08s linear;
+    background: linear-gradient(90deg, #35e0ff, #ffcb6b 55%, #ff3ea5); box-shadow: 0 0 14px rgba(255,203,107,.7); }
+
+  /* centre messaging */
+  #centre { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  #countdown { font-size: clamp(90px, 17vw, 210px); font-weight: 900; line-height: 1; opacity: 0;
+    background: linear-gradient(100deg, #fff, var(--neon) 50%, var(--neon2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 44px rgba(53,224,255,.6)); }
+  #countdown.pop { animation: pop .82s cubic-bezier(.2,.9,.25,1); }
+  @keyframes pop { 0% { opacity: 0; transform: scale(2.1); } 18% { opacity: 1; transform: scale(1); }
+                   75% { opacity: 1; } 100% { opacity: 0; transform: scale(.86); } }
+
+  #toast { position: absolute; left: 50%; top: 22%; transform: translateX(-50%); text-align: center; }
+  .toast-item { font-size: clamp(20px, 3.4vw, 34px); font-weight: 900; letter-spacing: .12em;
+    opacity: 0; animation: toast 1.5s ease forwards; text-shadow: 0 4px 30px rgba(0,0,0,.7); }
+  @keyframes toast { 0% { opacity: 0; transform: translateY(18px) scale(.9); }
+                     16% { opacity: 1; transform: translateY(0) scale(1); }
+                     72% { opacity: 1; } 100% { opacity: 0; transform: translateY(-16px); } }
+
+  /* ---------- pause / results ---------- */
+  #pause, #results {
+    z-index: 55; pointer-events: auto; display: flex; align-items: center; justify-content: center;
+    background: rgba(3,5,11,.74); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 20px;
+  }
+  .modal { width: min(560px, 94vw); }
+  .modal h3 { font-size: clamp(26px, 4vw, 40px); font-weight: 900; letter-spacing: .06em; margin-bottom: 6px;
+    background: linear-gradient(100deg, #fff, var(--neon) 55%, var(--neon2));
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .modal .why { font-size: 12px; letter-spacing: .28em; color: #7f9bc4; text-transform: uppercase; margin-bottom: 20px; }
+  .rows { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+  .row { display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: center;
+    padding: 10px 13px; border-radius: 10px; background: rgba(255,255,255,.045);
+    border: 1px solid rgba(255,255,255,.07); font-size: 13.5px; }
+  .row.me { background: linear-gradient(100deg, rgba(53,224,255,.16), rgba(255,62,165,.10));
+    border-color: rgba(53,224,255,.45); font-weight: 800; }
+  .row .p { font-size: 17px; font-weight: 900; color: var(--gold); }
+  .row .t { font-family: var(--mono); font-size: 12px; color: #9fb6d4; }
+  .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 20px; }
+  .summary div { background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px; padding: 11px 13px; }
+  .summary .k { font-size: 9.5px; letter-spacing: .28em; color: #7f9bc4; text-transform: uppercase; }
+  .summary .v { font-size: 19px; font-weight: 800; margin-top: 3px; font-family: var(--mono); }
+
+  /* ---------- touch ---------- */
+  #touch { z-index: 30; display: none; }
+  @media (pointer: coarse) { #touch { display: block; } }
+  .tbtn { position: absolute; pointer-events: auto; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.22);
+    background: rgba(10,16,28,.42); backdrop-filter: blur(7px); display: flex; align-items: center;
+    justify-content: center; font-size: 12px; font-weight: 800; letter-spacing: .08em; color: #d6e7ff;
+    user-select: none; transition: transform .1s, background .1s; }
+  .tbtn.active { background: rgba(53,224,255,.35); transform: scale(.94); border-color: var(--neon); }
+  #tc-left { left: 18px; bottom: 96px; width: 74px; height: 74px; }
+  #tc-right { left: 104px; bottom: 96px; width: 74px; height: 74px; }
+  #tc-gas { right: 18px; bottom: 118px; width: 92px; height: 92px; }
+  #tc-brake { right: 122px; bottom: 96px; width: 68px; height: 68px; }
+  #tc-drift { right: 30px; bottom: 224px; width: 78px; height: 78px; }
+  #tc-boost { right: 126px; bottom: 190px; width: 68px; height: 68px; }
+
+  .corner-note { position: absolute; left: 20px; bottom: 6px; font-size: 10px; letter-spacing: .22em; color: #4d5f7a; }
+</style>
+</head>
+<body>
+<div id="app">
+  <canvas id="gl"></canvas>
+
+  <!-- loading -->
+  <div class="layer" id="loading">
+    <div class="mark">霓虹飞车</div>
+    <div class="sub">NEON DRIFT</div>
+    <div class="spinner"></div>
+    <div id="loadbar"><i></i></div>
+    <div id="loadtext">初始化渲染管线…</div>
+  </div>
+
+  <!-- main menu -->
+  <div class="layer hidden" id="menu">
+    <div class="brand">
+      <h1>霓虹飞车</h1>
+      <span class="en">NEON DRIFT</span>
+    </div>
+    <div class="tagline">漂移集气 · 氮气爆发 · 三条极致风景赛道</div>
+
+    <div class="menu-body">
+      <div class="panel">
+        <h2>选择赛道 / Circuit</h2>
+        <div class="cards" id="track-cards"></div>
+      </div>
+
+      <div class="panel">
+        <h2>选择赛车 / Machine</h2>
+        <div class="cards" id="car-cards"></div>
+      </div>
+
+      <div class="panel">
+        <h2>设置 / Settings</h2>
+        <div style="font-size:11px;letter-spacing:.24em;color:#7f9bc4;margin-bottom:7px">画质 QUALITY</div>
+        <div class="options" id="quality-opts">
+          <div class="opt" data-q="low">流畅</div>
+          <div class="opt" data-q="medium">均衡</div>
+          <div class="opt sel" data-q="high">极致</div>
+        </div>
+        <div style="font-size:11px;letter-spacing:.24em;color:#7f9bc4;margin:14px 0 7px">对手 RIVALS</div>
+        <div class="options" id="rival-opts">
+          <div class="opt" data-r="0">独自练习</div>
+          <div class="opt" data-r="3">3 名</div>
+          <div class="opt sel" data-r="5">5 名</div>
+          <div class="opt" data-r="7">7 名</div>
+        </div>
+        <div style="font-size:11px;letter-spacing:.24em;color:#7f9bc4;margin:14px 0 7px">音效 AUDIO</div>
+        <div class="options" id="audio-opts">
+          <div class="opt sel" data-a="on">开启</div>
+          <div class="opt" data-a="off">静音</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>操作 / Controls</h2>
+        <div class="keys">
+          <b>W / ↑</b><span>加速</span>
+          <b>S / ↓</b><span>刹车 · 倒车</span>
+          <b>A D / ← →</b><span>转向</span>
+          <b>SHIFT</b><span>漂移集气（长按转向中按下）</span>
+          <b>SPACE</b><span>释放氮气</span>
+          <b>C</b><span>切换视角</span>
+          <b>R</b><span>回到赛道</span>
+          <b>ESC</b><span>暂停</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="go">
+      <button class="btn" id="btn-start">开始比赛 START</button>
+      <span style="font-size:11.5px;color:#7f9bc4;letter-spacing:.16em">3 圈 · 漂移越久，氮气越多</span>
+    </div>
+    <div class="corner-note">PROCEDURAL WORLD · WEBGL2 · NO ASSETS</div>
+  </div>
+
+  <!-- HUD -->
+  <div class="layer hidden" id="hud">
+    <div class="hud-tl">
+      <div class="chip" id="pos"><div class="k">Position</div><div class="v">1<small>/6</small></div></div>
+      <div class="chip" id="lap"><div class="k">Lap</div><div class="v">1<small>/3</small></div></div>
+      <div class="chip" id="timer"><div class="k">Time</div><div class="v" style="font-family:var(--mono);font-size:18px">00:00.000</div></div>
+      <div class="chip" id="best"><div class="k">Best Lap</div><div class="v" style="font-family:var(--mono);font-size:18px">--:--.---</div></div>
+    </div>
+
+    <div class="hud-tr">
+      <canvas id="minimap" width="336" height="336"></canvas>
+      <div id="standings"></div>
+    </div>
+
+    <div class="hud-bl">
+      <div class="nitro-label">NITRO 氮气</div>
+      <div id="nitro"><div class="cell"></div><div class="cell"></div><div class="cell"></div></div>
+      <div id="drift-meter"><i></i></div>
+    </div>
+
+    <div class="hud-br">
+      <div id="speedo">
+        <canvas width="380" height="380"></canvas>
+        <div class="speed-num">
+          <div class="n">0</div>
+          <div class="u">KM / H</div>
+          <div class="gear">N</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="centre"><div id="countdown"></div></div>
+    <div id="toast"></div>
+  </div>
+
+  <!-- touch controls -->
+  <div class="layer" id="touch">
+    <div class="tbtn" id="tc-left">◀</div>
+    <div class="tbtn" id="tc-right">▶</div>
+    <div class="tbtn" id="tc-gas">加速</div>
+    <div class="tbtn" id="tc-brake">刹车</div>
+    <div class="tbtn" id="tc-drift">漂移</div>
+    <div class="tbtn" id="tc-boost">氮气</div>
+  </div>
+
+  <!-- pause -->
+  <div class="layer hidden" id="pause">
+    <div class="modal panel">
+      <h3>暂停</h3>
+      <div class="why">PAUSED</div>
+      <div class="go" style="margin-top:0">
+        <button class="btn" id="btn-resume">继续 RESUME</button>
+        <button class="btn ghost" id="btn-restart">重新开始</button>
+        <button class="btn ghost" id="btn-quit">返回菜单</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- results -->
+  <div class="layer hidden" id="results">
+    <div class="modal panel">
+      <h3 id="result-title">比赛结束</h3>
+      <div class="why" id="result-sub">RACE COMPLETE</div>
+      <div class="summary" id="result-summary"></div>
+      <div class="rows" id="result-rows"></div>
+      <div class="go" style="margin-top:0">
+        <button class="btn" id="btn-again">再来一局</button>
+        <button class="btn ghost" id="btn-menu">返回菜单</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

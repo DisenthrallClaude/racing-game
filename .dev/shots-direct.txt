@@ -1,0 +1,13 @@
+
+=== sakura ===
+world built in 30.0s
+  sakura-1-grid: 720x405 meanRGB=36.6
+  sakura-2-drive: 720x405 meanRGB=32.2
+  sakura-3-drift: 720x405 meanRGB=26.0
+  sakura-4-boost: 720x405 meanRGB=26.1
+  sakura-5-cine: 720x405 meanRGB=29.2
+  sakura-6-wide: 720x405 meanRGB=18.8
+  {"raceState":"racing","kmh":0,"onRoad":false,"offroad":true,"grounded":true,"nitro":0,"lap":0,"pos":6,"progress":61,"aiKmh":[141,95,145,88,78],"aiOnRoad":[true,true,true,true,true],"programs":77,"geometries":1116,"textures":75,"trackLen":3944}
+
+--- errors ---
+Failed to load resource: the server responded with a status of 404 (Not Found)
