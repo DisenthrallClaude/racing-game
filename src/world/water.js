@@ -115,7 +115,11 @@ export function createWater(terrain, theme) {
 
         transformed += disp;
         vCrest = smoothstep(0.35, 1.1, disp.y);
-        vWaveNormal = normalize(cross(binm, tang));
+        // Guard the frame: if the two derivative vectors ever collapse, the
+        // normalize returns NaN, every lighting term downstream becomes NaN,
+        // and the whole ocean renders black.
+        vec3 waveN = cross(binm, tang);
+        vWaveNormal = dot(waveN, waveN) > 1e-8 ? normalize(waveN) : vec3(0.0, 1.0, 0.0);
         vWorldPos = (modelMatrix * vec4(transformed, 1.0)).xyz;`)
       .replace('#include <defaultnormal_vertex>', `#include <defaultnormal_vertex>
         transformedNormal = normalize(normalMatrix * vWaveNormal);`);
@@ -172,6 +176,17 @@ export function createWater(terrain, theme) {
         diffuseColor.rgb *= mix(waterCol / max(uShallow, vec3(0.001)), vec3(1.0), 0.0);
         diffuseColor.rgb = mix(waterCol, uFoam, foam);
         diffuseColor.a = mix(0.90, 1.0, foam) * smoothstep(0.0, 1.2, waterDepth + 1.2);`)
+      // Belt and braces: whatever the lighting produces, the ocean must never
+      // resolve to a non-finite colour — a single NaN texel here spreads
+      // through the bloom pyramid and takes the whole frame with it.
+      .replace('#include <opaque_fragment>', `
+        {
+          vec3 ol = outgoingLight;
+          ol = vec3(ol.r == ol.r ? ol.r : 0.0,
+                    ol.g == ol.g ? ol.g : 0.0,
+                    ol.b == ol.b ? ol.b : 0.0);
+          gl_FragColor = vec4(clamp(ol, 0.0, 40.0), diffuseColor.a);
+        }`)
       .replace('#include <roughnessmap_fragment>', `#include <roughnessmap_fragment>
         {
           vec2 duv2 = (vWorldPos.xz - uDepthRect.xy) / uDepthRect.zw;

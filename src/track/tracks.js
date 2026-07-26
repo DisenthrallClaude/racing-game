@@ -85,7 +85,7 @@ export const SAKURA = {
       stars: 0.0,
     },
     sun: { color: 0xffd2a0, intensity: 5.6, shadowRadius: 3.2 },
-    ambient: { sky: 0xffe6cc, ground: 0x6b6350, intensity: 1.7 },
+    ambient: { sky: 0xffe6cc, ground: 0x8a7c62, intensity: 1.7, floor: 0.95, floorColor: 0xffd9b4 },
     fog: { color: 0xe4b48c, near: 220, far: 3400, density: 0.00022 },
     grade: {
       exposure: 1.30, bloom: 0.62, bloomRadius: 0.78, bloomThreshold: 0.85,
@@ -221,7 +221,7 @@ export const METRO = {
       horizonHaze: 1.25,
     },
     sun: { color: 0x7f9bff, intensity: 0.9, shadowRadius: 4.5 },
-    ambient: { sky: 0x3d5e94, ground: 0x1e232f, intensity: 1.05 },
+    ambient: { sky: 0x3d5e94, ground: 0x2a3242, intensity: 1.05, floor: 0.6, floorColor: 0x4a6ea8 },
     fog: { color: 0x121a2e, near: 90, far: 2000, density: 0.00068 },
     grade: {
       exposure: 1.32, bloom: 1.05, bloomRadius: 0.9, bloomThreshold: 0.5,
@@ -351,7 +351,7 @@ export const ALPINE = {
       horizonHaze: 0.7,
     },
     sun: { color: 0xffd8b8, intensity: 4.0, shadowRadius: 3.6 },
-    ambient: { sky: 0xc4dcff, ground: 0x6c7c98, intensity: 1.7 },
+    ambient: { sky: 0xc4dcff, ground: 0x8496b4, intensity: 1.7, floor: 1.0, floorColor: 0xc8dcff },
     fog: { color: 0xa8bdd6, near: 260, far: 4200, density: 0.00019 },
     grade: {
       exposure: 1.18, bloom: 0.8, bloomRadius: 0.85, bloomThreshold: 0.68,

@@ -118,11 +118,27 @@ export class World {
     const hemi = new THREE.HemisphereLight(T.ambient.sky, T.ambient.ground, T.ambient.intensity);
     this.root.add(hemi);
 
+    // Normal- and shadow-independent floor. A hemisphere light still leaves
+    // slopes facing away from both the sky and the sun almost unlit, which
+    // reads as a hole in the landscape rather than as shade; this guarantees
+    // every surface keeps some colour whichever way it points.
+    const floor = new THREE.AmbientLight(
+      T.ambient.floorColor ?? T.ambient.sky,
+      T.ambient.floor ?? 0.55,
+    );
+    this.root.add(floor);
+
     // A dim fill from the anti-sun side keeps shadowed faces readable without
     // washing out the contrast the tone mapper works with.
-    const fill = new THREE.DirectionalLight(T.ambient.sky, T.sun.intensity * 0.12 + 0.12);
+    const fill = new THREE.DirectionalLight(T.ambient.sky, T.sun.intensity * 0.14 + 0.2);
     fill.position.set(-sunDir.x * 200, 120, -sunDir.z * 200);
     this.root.add(fill);
+
+    // And a second fill from below-left of the sun, so the shaded side of the
+    // ridge the circuit sits on never falls to black.
+    const bounce = new THREE.DirectionalLight(T.ambient.ground, T.sun.intensity * 0.10 + 0.15);
+    bounce.position.set(sunDir.z * 200, -60, -sunDir.x * 200);
+    this.root.add(bounce);
   }
 
   _buildTerrain() {

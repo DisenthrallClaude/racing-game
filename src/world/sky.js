@@ -226,8 +226,12 @@ const skyFrag = /* glsl */`
     vec3 betaR = totalRayleigh * rayleighCoefficient;
     vec3 betaM = totalMie(uTurbidity) * uMieCoefficient;
 
-    float zenithAngle = acos(max(0.0, dot(UP, dir)));
-    float inv = 1.0 / (cos(zenithAngle) + 0.15 * pow(93.885 - ((zenithAngle * 180.0) / PI), -1.253));
+    // Clamp away from the exact horizon: at 90° the optical-depth term blows
+    // up and the scattering integral degenerates, which is where this model
+    // produces non-finite values.
+    float cosZenith = max(dot(UP, dir), 0.045);
+    float zenithAngle = acos(clamp(cosZenith, 0.0, 1.0));
+    float inv = 1.0 / (cosZenith + 0.15 * pow(max(93.885 - ((zenithAngle * 180.0) / PI), 0.1), -1.253));
     float sR = rayleighZenithLength * inv;
     float sM = mieZenithLength * inv;
     vec3 Fex = exp(-(betaR * sR + betaM * sM));
@@ -250,7 +254,13 @@ const skyFrag = /* glsl */`
     L0 += pow(max(cosTheta, 0.0), 180.0) * uSunColor * 4.0 * Fex;
 
     vec3 texColor = (Lin + L0) * 0.04 + vec3(0.0, 0.0003, 0.00075);
-    vec3 sky = texColor;
+    // Scrub before anything mixes with it: a NaN here would survive every
+    // subsequent mix() (NaN * 0 is still NaN), blacken the horizon, and then
+    // spread through the bloom pyramid into the whole frame.
+    vec3 sky = vec3(texColor.r == texColor.r ? texColor.r : 0.0,
+                    texColor.g == texColor.g ? texColor.g : 0.0,
+                    texColor.b == texColor.b ? texColor.b : 0.0);
+    sky = clamp(sky, vec3(0.0), vec3(60.0));
 
     // --- night: dim the scattering and blend in stars + aurora ---
     vec3 night = uNightTint * (0.9 + 0.35 * smoothstep(0.6, -0.1, dir.y));
